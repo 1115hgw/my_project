@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ko">
+<head>
+
+    <!-- Webpage Title -->
+    <title> Miracle Mornig Diary </title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+    <!-- 구글폰트 -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Yeon+Sung&display=swap" rel="stylesheet">
+
+    <style type="text/css">
+        * {
+            font-family: 'Yeon Sung', cursive;
+        }
+
+        .wrap {
+            width: 600px;
+            margin: auto;
+        }
+
+        h1, h5 {
+            display: inline;
+        }
+
+        .img {
+            background-image: url('https://t1.daumcdn.net/cfile/tistory/266BDE4F5575168318');
+            background-size: cover;
+            background-position: center;
+            width: 300px;
+            height: 200px;
+        }
+
+        .comment {
+            color: blue;
+            font-weight: bold;
+        }
+
+        #post-box {
+            width: 300px;
+            margin: 20px auto;
+            padding: 50px;
+            border: black solid;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrap">
+    <p>
+    <h1 class="display-4">Scribing(쓰기)&#127774;</h1> <br>
+    <p>
+    <div class="menu">
+        <!--           <h5> <button type="button" class="btn btn-outline-dark">SAVERS<br>가이드</button>-->
+        <button type="button" class="btn btn-outline-primary" onclick="location.href='Silence.html'">Silence<br>(침묵)
+        </button>
+        <button type="button" class="btn btn-outline-secondary" onclick="location.href='Affirmation.html'">
+            Affirmations<br>(확신의 말)
+        </button>
+        <button type="button" class="btn btn-outline-success" onclick="location.href='Visualization.html'">Visualization<br>(시각화)
+        </button>
+        <button type="button" class="btn btn-outline-danger" onclick="location.href='Exercise.html'">Exercise<br>운동
+        </button>
+        <button type="button" class="btn btn-outline-warning" onclick="location.href='Reading.html'">Reading<br>(독서)
+        </button>
+        <button type="button" class="btn btn-info" onclick="location.href='Scribing.html'">Scribing<br>(쓰기)
+        </button>
+
+    </div>
+    <br>
+    <h3>일기장을 꺼내 감사하게 여길 만한 것을 한가지라도 적는다.</h3>
+    <h4>오늘 당신이 달성하고 싶은 가장 중요한 일을 적어도 좋다.</h4>
+    <br>
+    <div class="img"></div>
+    <br>
+    <div class="wrap">
+
+
+        <div id="post-box" class="form-post">
+            <div>
+                <div class="form-group">
+                    <label for="post-url">날짜</label>
+                    <input id="post-url" class="form-control" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label for="post-comment">기록하기</label>
+                    <textarea id="post-comment" class="form-control" rows="4"></textarea>
+                </div>
+                <button type="button" class="btn btn-info" onclick="postArticle()">저장하기</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+</body>
+</html>

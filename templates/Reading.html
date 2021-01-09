@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="ko">
+<head>
+
+    <!-- Webpage Title -->
+    <title> Miracle Mornig Diary </title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+    <!-- 구글폰트 -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Yeon+Sung&display=swap" rel="stylesheet">
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#reviews-box").html("");
+            showReview();
+        });
+
+        function makeReview() {
+            // 1. 화면에 입력어 있는 제목, 저자, 리뷰 내용을 가져옵니다.
+            let title = $("#title").val();
+            let author = $("#author").val();
+            let review = $("#bookReview").val();
+
+            // 2. 제목, 저자, 리뷰 중 하나라도 입력하지 않았을 경우 alert를 띄웁니다.
+            if (title == "") {
+                alert("제목을 입력해주세요");
+                $("#title").focus();
+                return;
+            } else if (author == "") {
+                alert("저자를 입력해주세요");
+                $("#author").focus();
+                return;
+            } else if (review == "") {
+                alert("리뷰를 입력해주세요");
+                $("#bookReview").focus();
+                return;
+            }
+
+            // 3. POST /review 에 저장(Create)을 요청합니다.
+            $.ajax({
+                type: "POST",
+                url: "/review",
+                data: {title_give: title, author_give: author, review_give: review},
+                success: function (response) {
+                    if (response["result"] == "success") {
+                        alert(response["msg"]);
+                        window.location.reload();
+                    }
+                }
+            })
+        }
+
+        function showReview() {
+            // 1. 리뷰 목록을 서버에 요청하기
+            $.ajax({
+                type: "GET",
+                url: "/review",
+                data: {},
+                success: function (response) {
+                    // 2. 요청 성공 여부 확인하기
+                    if (response["result"] == "success") {
+                        let reviews = response["reviews"];
+                        // 3. 요청 성공했을 때 리뷰를 올바르게 화면에 나타내기
+                        for (let i = 0; i < reviews.length; i++) {
+                            makeCard(reviews[i]["title"], reviews[i]["author"], reviews[i]["review"]);
+                        }
+                    } else {
+                        alert("리뷰를 받아오지 못했습니다");
+                    }
+                }
+            })
+        }
+
+
+        function makeCard(title, author, review) {
+            let tempHtml = `<tr>
+                        <td>${title}</td>
+                        <td>${author}</td>
+                        <td>${review}</td>
+                    </tr>`;
+            $("#reviews-box").append(tempHtml);
+        }
+
+        function validateLength(obj) {
+            let content = $(obj).val();
+            if (content.length > 140) {
+                alert("리뷰는 140자까지 기록할 수 있습니다.");
+                $(obj).val(content.substring(0, content.length - 1));
+            }
+        }
+    </script>
+
+
+    <style type="text/css">
+        * {
+            font-family: 'Yeon Sung', cursive;
+        }
+
+        .wrap {
+            width: 600px;
+            margin: auto;
+        }
+
+        h1, h5 {
+            display: inline;
+        }
+
+        .img {
+            background-image: url('https://wonderfulmind.co.kr/wp-content/uploads/2018/05/girl-reading-a-book-with-cat-bookmark-600x367.jpg');
+            background-size: cover;
+            background-position: center;
+            width: 300px;
+            height: 200px;
+        }
+
+        .review {
+            text-align: center;
+        }
+
+        .reviews {
+            margin-top: 100px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <p>
+    <h1 class="display-4">Reading(독서)&#127774;</h1> <br>
+    <p>
+    <div class="menu">
+        <!--       <button type="button" class="btn btn-outline-dark">SAVERS<br>가이드</button>-->
+        <button type="button" class="btn btn-outline-primary" onclick="location.href='Silence.html'">Silence<br>(침묵)
+        </button>
+        <button type="button" class="btn btn-outline-secondary" onclick="location.href='Affirmation.html'">
+            Affirmations<br>(확신의 말)
+        </button>
+        <button type="button" class="btn btn-outline-success" onclick="location.href='Visualization.html'">Visualization<br>(시각화)
+        </button>
+        <button type="button" class="btn btn-outline-danger" onclick="location.href='Exercise.html'">Exercise<br>운동
+        </button>
+        <button type="button" class="btn btn-warning" onclick="location.href='Reading.html'">Reading<br>(독서)
+        </button>
+        <button type="button" class="btn btn-outline-info" onclick="location.href='Scribing.html'">Scribing<br>(쓰기)
+        </button>
+    </div>
+    <br>
+    <h3>책을 들고 한 단락이든 한 쪽이든 읽는다.</h3>
+    <h4>1년이면 20권 분량의 책을 읽고 있는 자신을 발견하게 될 것이다.</h4>
+    <br>
+    <div class="img"></div>
+    <br>
+
+    <div class="container">
+        <div class="info">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">제목</span>
+                </div>
+                <input type="text" class="form-control" id="title">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">저자</span>
+                </div>
+                <input type="text" class="form-control" id="author">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">리뷰</span>
+                </div>
+                <textarea class="form-control" id="bookReview"
+                          cols="30"
+                          rows="5" placeholder="140자까지 입력할 수 있습니다." onkeyup="validateLength(this)"></textarea>
+            </div>
+            <div class="review">
+                <button onclick="makeReview()" type="button" class="btn btn-warning">읽은 책 등록하기</button>
+            </div>
+        </div>
+
+        <div class="reviews">
+            <table class="table">
+                <h4>읽은 책 목록</h4>
+                <thead>
+                <tr>
+                    <th scope="col">제목</th>
+                    <th scope="col">저자</th>
+                    <th scope="col">리뷰</th>
+                </tr>
+                </thead>
+                <tbody id="reviews-box">
+                <tr>
+                    <td>왕초보 8주 코딩</td>
+                    <td>김르탄</td>
+                    <td>역시 왕초보 코딩교육의 명가답군요. 따라하다보니 눈 깜짝할 사이에 8주가 지났습니다.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
