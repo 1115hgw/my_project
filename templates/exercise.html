@@ -44,7 +44,7 @@
         }
 
         .img {
-            background-image: url('https://lh3.googleusercontent.com/proxy/QS3UiC4E6gAwHzjFL4CDAusB5--bmzmthRb8axGVPiSafai8ZZcZrQX6eOWMOEYZocjAy9yIuyHPxwhWAjSId-LB1XpTv2kyXQET_XF1FanxIKwpOiF-k6BwhtZZMN3xfw');
+            background-image: url('https://img.huffingtonpost.com/asset/5d6fe0522500008d000314e9.jpeg?ops=scalefit_630_noupscale');
             background-size: cover;
             background-position: center;
             width: 300px;
@@ -94,7 +94,7 @@
             // 2. memo에 POST 방식으로 메모 생성 요청하기
             $.ajax({
                 type: "POST", // POST 방식으로 요청하겠다.
-                url: "/Silence", // /memo라는 url에 요청하겠다.
+                url: "/api/exercise", // /memo라는 url에 요청하겠다.
                 data: {url_give: url, comment_give: comment}, // 데이터를 주는 방법
                 success: function (response) { // 성공하면
                     if (response["result"] == "success") {
@@ -111,13 +111,13 @@
         function showArticles() {
             $.ajax({
                 type: "GET",
-                url: "/Silence",
+                url: "/api/exercise",
                 data: {},
                 success: function (response) {
-                    let Silences = response["Silences"];
-                    console.log(Silences);
-                    for (let i = 0; i < Silences.length; i++) {
-                        makeCard(Silences[i]["image"], Silences[i]["url"], Silences[i]["title"], Silences[i]["desc"], Silences[i]["comment"])
+                    let Exercises = response["Exercies"];
+                    console.log(Exercises);
+                    for (let i = 0; i < Exercises.length; i++) {
+                        makeCard(Exercises[i]["image"], Exercises[i]["url"], Exercises[i]["title"], Exercises[i]["desc"],Exercises[i]["comment"])
                     }
                 }
             })
@@ -143,21 +143,12 @@
     <h1 class="display-4">Exercise(운동)&#127774;</h1> <br>
     <p>
     <div class="menu">
-        <!--           <h5> <button type="button" class="btn btn-outline-dark">SAVERS<br>가이드</button>-->
-        <
-        <button type="button" class="btn btn-outline-primary" onclick="location.href='Silence.html'">Silence<br>(침묵)
-        </button>
-        <button type="button" class="btn btn-outline-secondary" onclick="location.href='Affirmation.html'">
-            Affirmations<br>(확신의 말)
-        </button>
-        <button type="button" class="btn btn-outline-success" onclick="location.href='Visualization.html'">Visualization<br>(시각화)
-        </button>
-        <button type="button" class="btn btn-danger" onclick="location.href='Exercise.html'">Exercise<br>운동</button>
-        <button type="button" class="btn btn-outline-warning" onclick="location.href='Reading.html'">Reading<br>(독서)
-        </button>
-        <button type="button" class="btn btn-outline-info" onclick="location.href='Scribing.html'">Scribing<br>(쓰기)
-        </button>
-
+        <a class="btn btn-outline-primary" href="{{ url_for('get_silencepage') }}"> Silence<br>(침묵)</a>
+        <a class="btn btn-outline-secondary" href="{{ url_for('get_affirmationpage') }}">Affirmation<br>(확신의 말)</a>
+        <a class="btn btn-outline-success" href="{{ url_for('get_visualizationpage') }}">Visualization<br>(시각화)</a>
+        <a class="btn btn-danger" href="{{ url_for('get_exercisepage') }}">Exercise<br>운동</a>
+        <a class="btn btn-outline-warning" href="{{ url_for('get_readpage') }}"> Reading<br>(독서)</a>
+        <a class="btn btn-outline-info" href="{{ url_for('get_scribingpage') }}">Scribing<br>(쓰기)</a>
     </div>
     <br>
     <h3>눈을 뜨자마자 바로 할 수 있는 운동을 실행한다.</h3>

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ko">
+<head>
+
+    <!-- Webpage Title -->
+    <title> Miracle Mornig Diary </title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+    <!-- 구글폰트 -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Yeon+Sung&display=swap" rel="stylesheet">
+
+    <style type="text/css">
+        * {
+            font-family: 'Yeon Sung', cursive;
+        }
+
+        .wrap {
+            width: 400px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .img {
+            background-image: url('https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F2376DE41584F28BD14');
+            background-size: cover;
+            background-position: center;
+
+            width: 700px;
+            height: auto;
+        }
+
+        .info {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        h1, h5 {
+            display: inline;
+        }
+
+        .order {
+            text-align: center;
+        }
+
+        .order {
+            margin-top: 30px;
+        }
+    </style>
+
+</head>
+<body>
+
+
+<div class="wrap">
+    <p>
+    <h1 class="display-4">미라클모닝&#127774;</h1> <br>
+    <p>
+    <h4>당신의 하루를 바꾸는 기적,<br> 미라클 모닝을 실천해보세요!</h4>
+    <p>
+    <div class="img"></div>
+    <div class="info">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/JxIi33rSbkg" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+    </div>
+    <div>
+        <a class="btn btn-primary btn-lg btn-block" href="{{ url_for('get_guidepage') }}"> 시작하기</a>
+    </div>
+</div>
+</body>
+</html>

@@ -72,21 +72,12 @@
     <h1 class="display-4">Scribing(쓰기)&#127774;</h1> <br>
     <p>
     <div class="menu">
-        <!--           <h5> <button type="button" class="btn btn-outline-dark">SAVERS<br>가이드</button>-->
-        <button type="button" class="btn btn-outline-primary" onclick="location.href='Silence.html'">Silence<br>(침묵)
-        </button>
-        <button type="button" class="btn btn-outline-secondary" onclick="location.href='Affirmation.html'">
-            Affirmations<br>(확신의 말)
-        </button>
-        <button type="button" class="btn btn-outline-success" onclick="location.href='Visualization.html'">Visualization<br>(시각화)
-        </button>
-        <button type="button" class="btn btn-outline-danger" onclick="location.href='Exercise.html'">Exercise<br>운동
-        </button>
-        <button type="button" class="btn btn-outline-warning" onclick="location.href='Reading.html'">Reading<br>(독서)
-        </button>
-        <button type="button" class="btn btn-info" onclick="location.href='Scribing.html'">Scribing<br>(쓰기)
-        </button>
-
+        <a class="btn btn-outline-primary" href="{{ url_for('get_silencepage') }}"> Silence<br>(침묵)</a>
+        <a class="btn btn-outline-secondary" href="{{ url_for('get_affirmationpage') }}">Affirmation<br>(확신의 말)</a>
+        <a class="btn btn-outline-success" href="{{ url_for('get_visualizationpage') }}">Visualization<br>(시각화)</a>
+        <a class="btn btn-outline-danger" href="{{ url_for('get_exercisepage') }}">Exercise<br>운동</a>
+        <a class="btn btn-outline-warning" href="{{ url_for('get_readpage') }}"> Reading<br>(독서)</a>
+        <a class="btn btn-info" href="{{ url_for('get_scribingpage') }}">Scribing<br>(쓰기)</a>
     </div>
     <br>
     <h3>일기장을 꺼내 감사하게 여길 만한 것을 한가지라도 적는다.</h3>

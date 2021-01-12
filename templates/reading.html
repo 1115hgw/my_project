@@ -5,19 +5,16 @@
     <!-- Webpage Title -->
     <title> Miracle Mornig Diary </title>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
 
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-            crossorigin="anonymous"></script>
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
             integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
             crossorigin="anonymous"></script>
@@ -60,7 +57,7 @@
             // 3. POST /review 에 저장(Create)을 요청합니다.
             $.ajax({
                 type: "POST",
-                url: "/review",
+                url: "/api/read",
                 data: {title_give: title, author_give: author, review_give: review},
                 success: function (response) {
                     if (response["result"] == "success") {
@@ -75,7 +72,7 @@
             // 1. 리뷰 목록을 서버에 요청하기
             $.ajax({
                 type: "GET",
-                url: "/review",
+                url: "/api/read",
                 data: {},
                 success: function (response) {
                     // 2. 요청 성공 여부 확인하기
@@ -150,20 +147,12 @@
     <h1 class="display-4">Reading(독서)&#127774;</h1> <br>
     <p>
     <div class="menu">
-        <!--       <button type="button" class="btn btn-outline-dark">SAVERS<br>가이드</button>-->
-        <button type="button" class="btn btn-outline-primary" onclick="location.href='Silence.html'">Silence<br>(침묵)
-        </button>
-        <button type="button" class="btn btn-outline-secondary" onclick="location.href='Affirmation.html'">
-            Affirmations<br>(확신의 말)
-        </button>
-        <button type="button" class="btn btn-outline-success" onclick="location.href='Visualization.html'">Visualization<br>(시각화)
-        </button>
-        <button type="button" class="btn btn-outline-danger" onclick="location.href='Exercise.html'">Exercise<br>운동
-        </button>
-        <button type="button" class="btn btn-warning" onclick="location.href='Reading.html'">Reading<br>(독서)
-        </button>
-        <button type="button" class="btn btn-outline-info" onclick="location.href='Scribing.html'">Scribing<br>(쓰기)
-        </button>
+        <a class="btn btn-outline-primary" href="{{ url_for('get_silencepage') }}"> Silence<br>(침묵)</a>
+        <a class="btn btn-outline-secondary" href="{{ url_for('get_affirmationpage') }}">Affirmation<br>(확신의 말)</a>
+        <a class="btn btn-outline-success" href="{{ url_for('get_visualizationpage') }}">Visualization<br>(시각화)</a>
+        <a class="btn btn-outline-danger" href="{{ url_for('get_exercisepage') }}">Exercise<br>운동</a>
+        <a class="btn btn-warning" href="{{ url_for('get_readpage') }}"> Reading<br>(독서)</a>
+        <a class="btn btn-outline-info" href="{{ url_for('get_scribingpage') }}">Scribing<br>(쓰기)</a>
     </div>
     <br>
     <h3>책을 들고 한 단락이든 한 쪽이든 읽는다.</h3>

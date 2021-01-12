@@ -46,39 +46,45 @@
     }
 
     .img {
-        background-image: url('https://lh3.googleusercontent.com/proxy/a8LAtFN1kKziZU20y7FD0EqQlzMPxfO-nbXweXEBNUMd0e5iWxAByiYGQm6Fdf2o5rbviw0gh4A8yarAewQSYFH55zLoMr9GHrZ8wkLeKZGO4HtObz1W');
+        background-image: url('https://img.etoday.co.kr/pto_db/2017/12/20171229094602_1169578_710_340.jpg');
         background-size: cover;
         background-position: center;
-        width: 500px;
-        height: 300px;
+        width: 300px;
+        height: 200px;
     }
 
 </style>
 <div class="wrap">
     <p>
-    <h1 class="display-4">Visualization(시각화)&#127774;</h1> <br>
+    <h1 class="display-4"> Affirmations(확신의 말)&#127774;</h1> <br>
     <p>
     <div class="menu">
-        <!--       <button type="button" class="btn btn-outline-dark">SAVERS<br>가이드</button>-->
-        <button type="button" class="btn btn-outline-primary" onclick="location.href='Silence.html'">Silence<br>(침묵)
-        </button>
-        <button type="button" class="btn btn-outline-secondary" onclick="location.href='Affirmation.html'">
-            Affirmations<br>(확신의 말)
-        </button>
-        <button type="button" class="btn btn-success" onclick="location.href='Visualization.html'">Visualization<br>(시각화)
-        </button>
-        <button type="button" class="btn btn-outline-danger" onclick="location.href='Exercise.html'">Exercise<br>운동</button>
-        <button type="button" class="btn btn-outline-warning" onclick="location.href='Reading.html'">Reading<br>(독서)
-        </button>
-        <button type="button" class="btn btn-outline-info" onclick="location.href='Scribing.html'">Scribing<br>(쓰기)
-        </button>
+        <a class="btn btn-outline-primary" href="{{ url_for('get_silencepage') }}"> Silence<br>(침묵)</a>
+        <a class="btn btn-secondary" href="{{ url_for('get_affirmationpage') }}">Affirmation<br>(확신의 말)</a>
+        <a class="btn btn-outline-success" href="{{ url_for('get_visualizationpage') }}">Visualization<br>(시각화)</a>
+        <a class="btn btn-outline-danger" href="{{ url_for('get_exercisepage') }}">Exercise<br>운동</a>
+        <a class="btn btn-outline-warning" href="{{ url_for('get_readpage') }}"> Reading<br>(독서)</a>
+        <a class="btn btn-outline-info" href="{{ url_for('get_scribingpage') }}">Scribing<br>(쓰기)</a>
     </div>
 
-     <br>
-    <h3>오늘 완수해야 하는 중요한 과제를 시각화한다.</h3>
-    <h4>실수없이 완벽하고 깔끔하게 실행에 옮기는 모습을 이미지화한다.</h4>
+
+    <br>
+    <h3>가장 중요한 확신의 말을 읽는다.</h3>
+    <h4>성취 목표, 목표가 중요한 이유, 실행 방안과 시기를 되새기고 다짐한다.</h4>
     <br>
     <div class="img"></div>
+    <br>
+
+    <div id="post-box" class="form-post">
+        <div>
+            <div class="form-group">
+                <label for="post-comment">확신의 말</label>
+                <textarea id="post-comment" class="form-control" rows="4"></textarea>
+            </div>
+            <button type="button" class="btn btn-secondary" onclick="postArticle()">등록하기</button>
+        </div>
+    </div>
+</div>
 
 </div>
 </body>
