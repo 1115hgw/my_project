@@ -68,10 +68,10 @@
     <script>
         $(document).ready(function () {
             $("#cards-box").html("");
-            showArticles();
+            show_exercise_movie();
         });
 
-        function openClose() {
+        function openclose_exercise() {
             // id 값 post-box의 display 값이 block 이면(= 눈에 보이면)
             if ($("#post-box").css("display") == "block") {
                 // post-box를 가리고
@@ -86,7 +86,7 @@
             }
         }
 
-        function postArticle() {
+        function post_exercise_movie() {
             // 1. 유저가 입력한 데이터를 #post-url과 #post-comment에서 가져오기
             let url = $("#post-url").val();
             let comment = $("#post-comment").val();
@@ -108,22 +108,22 @@
             })
         }
 
-        function showArticles() {
+        function show_exercise_movie() {
             $.ajax({
                 type: "GET",
                 url: "/api/exercise",
                 data: {},
                 success: function (response) {
-                    let Exercises = response["Exercies"];
-                    console.log(Exercises);
-                    for (let i = 0; i < Exercises.length; i++) {
-                        makeCard(Exercises[i]["image"], Exercises[i]["url"], Exercises[i]["title"], Exercises[i]["desc"],Exercises[i]["comment"])
+                    let exercises = response["exercises"];
+                    console.log(exercises);
+                    for (let i = 0; i < exercises.length; i++) {
+                        makecard_exercise(exercises[i]["image"], exercises[i]["url"], exercises[i]["title"], exercises[i]["desc"], exercises[i]["comment"])
                     }
                 }
             })
         }
 
-        function makeCard(image, url, title, desc, comment) {
+        function makecard_exercise(image, url, title, desc, comment) {
             let temp_html = `<div class="card">
                         <img class="card-img-top" src="${image}" alt="Card image cap">
                         <div class="card-body">
@@ -158,7 +158,7 @@
     <br>
     <div class="wrap">
 
-        <button onclick="openClose()" id="btn-post-box" type="button" class="btn btn-danger">영상 추가하기
+        <button onclick="openclose_exercise()" id="btn-post-box" type="button" class="btn btn-danger">영상 추가하기
         </button>
 
 
@@ -172,7 +172,7 @@
                     <label for="post-comment">코멘트</label>
                     <textarea id="post-comment" class="form-control" rows="2"></textarea>
                 </div>
-                <button type="button" class="btn btn-danger" onclick="postArticle()">영상저장</button>
+                <button type="button" class="btn btn-danger" onclick="post_exercise_movie()">영상저장</button>
             </div>
         </div>
         <div id="cards-box" class="card-columns">
@@ -182,7 +182,8 @@
                      alt="Card image cap">
                 <div class="card-body">
                     <a href="#" class="card-title">여기 기사 제목이 들어가죠</a>
-                    <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산...</p>
+                    <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리
+                        화려강산...</p>
                     <p class="card-text comment">여기에 코멘트가 들어갑니다.</p>
                 </div>
             </div>
@@ -192,7 +193,8 @@
                      alt="Card image cap">
                 <div class="card-body">
                     <a href="#" class="card-title">여기 기사 제목이 들어가죠</a>
-                    <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산...</p>
+                    <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리
+                        화려강산...</p>
                     <p class="card-text comment">여기에 코멘트가 들어갑니다.</p>
                 </div>
             </div>
@@ -202,7 +204,8 @@
                      alt="Card image cap">
                 <div class="card-body">
                     <a href="#" class="card-title">여기 기사 제목이 들어가죠</a>
-                    <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산...</p>
+                    <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리
+                        화려강산...</p>
                     <p class="card-text comment">여기에 코멘트가 들어갑니다.</p>
                 </div>
             </div>
@@ -212,7 +215,8 @@
                      alt="Card image cap">
                 <div class="card-body">
                     <a href="#" class="card-title">여기 기사 제목이 들어가죠</a>
-                    <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산...</p>
+                    <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리
+                        화려강산...</p>
                     <p class="card-text comment">여기에 코멘트가 들어갑니다.</p>
                 </div>
             </div>
@@ -222,7 +226,8 @@
                      alt="Card image cap">
                 <div class="card-body">
                     <a href="#" class="card-title">여기 기사 제목이 들어가죠</a>
-                    <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산...</p>
+                    <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리
+                        화려강산...</p>
                     <p class="card-text comment">여기에 코멘트가 들어갑니다.</p>
                 </div>
             </div>
@@ -232,7 +237,8 @@
                      alt="Card image cap">
                 <div class="card-body">
                     <a href="#" class="card-title">여기 기사 제목이 들어가죠</a>
-                    <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산...</p>
+                    <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리
+                        화려강산...</p>
                     <p class="card-text comment">여기에 코멘트가 들어갑니다.</p>
                 </div>
             </div>

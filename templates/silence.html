@@ -65,10 +65,10 @@
     <script>
         $(document).ready(function () {
             $("#cards-box").html("");
-            showArticles();
+            show_silence_movie();
         });
 
-        function openClose() {
+        function openclose_silence() {
             // id 값 post-box의 display 값이 block 이면(= 눈에 보이면)
             if ($("#post-box").css("display") == "block") {
                 // post-box를 가리고
@@ -83,7 +83,7 @@
             }
         }
 
-        function postArticle() {
+        function post_silence_movie() {
             // 1. 유저가 입력한 데이터를 #post-url과 #post-comment에서 가져오기
             let url = $("#post-url").val();
             let comment = $("#post-comment").val();
@@ -105,28 +105,47 @@
             })
         }
 
-        function showArticles() {
+        function show_silence_movie() {
             $.ajax({
                 type: "GET",
                 url: "/api/silence",
                 data: {},
                 success: function (response) {
-                    let Silences = response["Silences"];
-                    console.log(Silences);
-                    for (let i = 0; i < Silences.length; i++) {
-                        makeCard(Silences[i]["image"], Silences[i]["url"], Silences[i]["title"], Silences[i]["desc"], Silences[i]["comment"])
+                    let silences = response["silences"];
+                    console.log(silences);
+                    for (let i = 0; i < silences.length; i++) {
+                        makecard_silence(silences[i]["image"], silences[i]["url"], silences[i]["title"], silences[i]["desc"], silences[i]["comment"])
                     }
                 }
             })
         }
 
-        function makeCard(image, url, title, desc, comment) {
+        function delete_silence(url) {
+            // 1. 서버에 1) POST 방식으로, 2) /api/delete 라는 url에, 3) name_give라는 이름으로 name을 전달합니다.
+            // 참고) POST 방식이므로 data: {'name_give': name} 과 같은 양식이 되어야합니다!
+            $.ajax({
+                type: "POST",
+                url: "/api/silence",
+                data: {url_give: url},
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        // 2. '삭제 완료! 안녕!' 얼럿을 띄웁니다.
+                        alert('삭제 완료!')
+                        // 3. 변경된 정보를 반영하기 위해 새로고침합니다.
+                        window.location.reload()
+                    }
+                }
+            });
+        }
+
+        function makecard_silence(image, url, title, desc, comment) {
             let temp_html = `<div class="card">
                         <img class="card-img-top" src="${image}" alt="Card image cap">
                         <div class="card-body">
                         <a href="${url}" target="_blank" class="card-title">${title}</a>
                         <p class="card-text">${desc}</p>
                         <p class="card-text comment">${comment}</p>
+                        <p><button type="button" class="btn btn-danger" onclick="delete_silence('${url}')">영상삭제</button></p>
                         </div>
                     </div>`;
             $("#cards-box").append(temp_html);
@@ -155,7 +174,7 @@
     <br>
     <div class="wrap">
 
-        <button onclick="openClose()" id="btn-post-box" type="button" class="btn btn-primary">영상 추가하기
+        <button onclick="openclose_silence()" id="btn-post-box" type="button" class="btn btn-primary">영상 추가하기
         </button>
 
 
@@ -169,7 +188,7 @@
                     <label for="post-comment">코멘트</label>
                     <textarea id="post-comment" class="form-control" rows="2"></textarea>
                 </div>
-                <button type="button" class="btn btn-primary" onclick="postArticle()">영상저장</button>
+                <button type="button" class="btn btn-primary" onclick="post_silence_movie()">영상저장</button>
             </div>
         </div>
         <div id="cards-box" class="card-columns">
@@ -182,6 +201,11 @@
                     <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리
                         화려강산...</p>
                     <p class="card-text comment">여기에 코멘트가 들어갑니다.</p>
+                    <p>
+                        <button type="button" class="btn btn-danger"
+                                onclick="delete_silence('https://www.youtube.com/watch?v=VVc7X4lSO4w')">영상삭제
+                        </button>
+                    </p>
                 </div>
             </div>
             <div class="card">
@@ -193,6 +217,11 @@
                     <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리
                         화려강산...</p>
                     <p class="card-text comment">여기에 코멘트가 들어갑니다.</p>
+                    <p>
+                        <button type="button" class="btn btn-danger"
+                                onclick="delete_silence('https://www.youtube.com/watch?v=VVc7X4lSO4w')">영상삭제
+                        </button>
+                    </p>
                 </div>
             </div>
             <div class="card">
@@ -204,6 +233,11 @@
                     <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리
                         화려강산...</p>
                     <p class="card-text comment">여기에 코멘트가 들어갑니다.</p>
+                    <p>
+                        <button type="button" class="btn btn-danger"
+                                onclick="delete_silence('https://www.youtube.com/watch?v=VVc7X4lSO4w')">영상삭제
+                        </button>
+                    </p>
                 </div>
             </div>
             <div class="card">
@@ -215,6 +249,11 @@
                     <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리
                         화려강산...</p>
                     <p class="card-text comment">여기에 코멘트가 들어갑니다.</p>
+                    <p>
+                        <button type="button" class="btn btn-danger"
+                                onclick="delete_silence('https://www.youtube.com/watch?v=VVc7X4lSO4w')">영상삭제
+                        </button>
+                    </p>
                 </div>
             </div>
             <div class="card">
@@ -226,6 +265,11 @@
                     <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리
                         화려강산...</p>
                     <p class="card-text comment">여기에 코멘트가 들어갑니다.</p>
+                    <p>
+                        <button type="button" class="btn btn-danger"
+                                onclick="delete_silence('https://www.youtube.com/watch?v=VVc7X4lSO4w')">영상삭제
+                        </button>
+                    </p>
                 </div>
             </div>
             <div class="card">
@@ -237,6 +281,11 @@
                     <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리
                         화려강산...</p>
                     <p class="card-text comment">여기에 코멘트가 들어갑니다.</p>
+                    <p>
+                        <button type="button" class="btn btn-danger"
+                                onclick="delete_silence('https://www.youtube.com/watch?v=VVc7X4lSO4w')">영상삭제
+                        </button>
+                    </p>
                 </div>
             </div>
         </div>

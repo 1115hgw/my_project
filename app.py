@@ -80,7 +80,7 @@ def read_reviews():
 
 
 @app.route('/api/silence', methods=['POST'])
-def post_article():
+def post_silence():
     # 1. 클라이언트로부터 데이터를 받기
     url_receive = request.form['url_give']  # 클라이언트로부터 url을 받는 부분
     comment_receive = request.form['comment_give']  # 클라이언트로부터 comment를 받는 부분
@@ -99,21 +99,31 @@ def post_article():
     url_description = og_description['content']
     url_image = og_image['content']
 
-    Silence = {'url': url_receive, 'title': url_title, 'desc': url_description, 'image': url_image,
+    silence = {'url': url_receive, 'title': url_title, 'desc': url_description, 'image': url_image,
                'comment': comment_receive}
 
     # 3. mongoDB에 데이터를 넣기
-    db.Silences.insert_one(Silence)
+    db.silences.insert_one(silence)
 
     return jsonify({'result': 'success'})
 
 
 @app.route('/api/silence', methods=['GET'])
-def read_articles():
+def read_silence():
     # 1. mongoDB에서 _id 값을 제외한 모든 데이터 조회해오기 (Read)
-    result = list(db.Silences.find({}, {'_id': 0}))
+    result = list(db.silences.find({}, {'_id': 0}))
     # 2. articles라는 키 값으로 article 정보 보내주기
-    return jsonify({'result': 'success', 'Silences': result})
+    return jsonify({'result': 'success', 'silences': result})
+
+
+@app.route('/api/silence', methods=['POST'])
+def delete_silence():
+    # 1. 클라이언트가 전달한 name_give를 name_receive 변수에 넣습니다.
+    url_receive = request.form['url_give']
+    # 2. mystar 목록에서 delete_one으로 name이 name_receive와 일치하는 star를 제거합니다.
+    db.silences.insert_one({'url': url_receive})
+    # 3. 성공하면 success 메시지를 반환합니다.
+    return jsonify({'result': 'success'})
 
 
 # exercise api
@@ -137,11 +147,11 @@ def post_exercise():
     url_description = og_description['content']
     url_image = og_image['content']
 
-    Exercise = {'url': url_receive, 'title': url_title, 'desc': url_description, 'image': url_image,
+    exercise = {'url': url_receive, 'title': url_title, 'desc': url_description, 'image': url_image,
                 'comment': comment_receive}
 
     # 3. mongoDB에 데이터를 넣기
-    db.Exercises.insert_one(Exercise)
+    db.exercises.insert_one(exercise)
 
     return jsonify({'result': 'success'})
 
@@ -149,9 +159,9 @@ def post_exercise():
 @app.route('/api/exercise', methods=['GET'])
 def read_exercise():
     # 1. mongoDB에서 _id 값을 제외한 모든 데이터 조회해오기 (Read)
-    result = list(db.Exercises.find({}, {'_id': 0}))
+    result = list(db.exercises.find({}, {'_id': 0}))
     # 2. articles라는 키 값으로 article 정보 보내주기
-    return jsonify({'result': 'success', 'Exercises': result})
+    return jsonify({'result': 'success', 'exercises': result})
 
 
 if __name__ == '__main__':
