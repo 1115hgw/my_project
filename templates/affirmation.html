@@ -31,6 +31,69 @@
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Yeon+Sung&display=swap" rel="stylesheet">
 
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#contents-box").html("");
+        show_affirmation();
+    });
+
+    function write_affirmation() {
+        // 1. 화면에 입력어 있는 내용을 가져옵니다.
+        let content = $("#content").val();
+
+        // 2. 내용을 하나도 입력하지 않았을 경우 alert를 띄웁니다.
+        if (content == "") {
+            alert("확언의 말을 입력해주세요");
+            $("#content").focus();
+            return;
+        }
+
+        // 3. POST /affirmation 에 저장(Create)을 요청합니다.
+        $.ajax({
+            type: "POST",
+            url: "/api/affirmation",
+            data: {content_give: content},
+            success: function (response) {
+                if (response["result"] == "success") {
+                    alert(response["msg"]);
+                    window.location.reload();
+                }
+            }
+        })
+    }
+
+    function show_affirmation() {
+        // 1. 리뷰 목록을 서버에 요청하기
+        $.ajax({
+            type: "GET",
+            url: "/api/affirmaion",
+            data: {},
+            success: function (response) {
+                // 2. 요청 성공 여부 확인하기
+                if (response["result"] == "success") {
+                    let affirmations = response["affirmations"];
+                    // 3. 요청 성공했을 때 리뷰를 올바르게 화면에 나타내기
+                    for (let i = 0; i < affirmations.length; i++) {
+                        make_affirmation(affirmations[i]["title"];
+                    }
+                } else {
+                    alert("리뷰를 받아오지 못했습니다");
+                }
+            }
+        })
+    }
+
+
+    function make_affirmation(content) {
+        let tempHtml = `<tr>
+                        <td>${content}</td>
+                    </tr>`;
+        $("#contents-box").append(tempHtml);
+    }
+
+</script>
+
 <style type="text/css">
     * {
         font-family: 'Yeon Sung', cursive;
@@ -81,11 +144,25 @@
                 <label for="post-comment">확신의 말</label>
                 <textarea id="post-comment" class="form-control" rows="4"></textarea>
             </div>
-            <button type="button" class="btn btn-secondary" onclick="postArticle()">등록하기</button>
+            <button type="button" class="btn btn-secondary" onclick="write_affirmation()">등록하기</button>
         </div>
+    </div>
+
+    <div class="content">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">확신의 말</th>
+            </tr>
+            </thead>
+            <tbody id="contents-box">
+            <tr>
+                <td>역시 왕초보 코딩교육의 명가답군요. 따라하다보니 눈 깜짝할 사이에 8주가 지났습니다.</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 
-</div>
 </body>
 </html>

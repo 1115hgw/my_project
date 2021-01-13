@@ -67,7 +67,7 @@
 
     <script>
         $(document).ready(function () {
-            $("#cards-box").html("");
+            $("#exercise-box").html("");
             show_exercise_movie();
         });
 
@@ -132,7 +132,7 @@
                         <p class="card-text comment">${comment}</p>
                         </div>
                     </div>`;
-            $("#cards-box").append(temp_html);
+            $("#exercise-box").append(temp_html);
         }
     </script>
 </head>
@@ -175,7 +175,7 @@
                 <button type="button" class="btn btn-danger" onclick="post_exercise_movie()">영상저장</button>
             </div>
         </div>
-        <div id="cards-box" class="card-columns">
+        <div id="exercise-box" class="card-columns">
             <div class="card">
                 <img class="card-img-top"
                      src="https://www.eurail.com/content/dam/images/eurail/Italy%20OCP%20Promo%20Block.adaptive.767.1535627244182.jpg"

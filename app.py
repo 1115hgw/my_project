@@ -49,7 +49,7 @@ def get_scribingpage():
     return render_template('scribing.html')
 
 
-## API 역할을 하는 부분
+## read
 @app.route('/api/read', methods=['POST'])
 def write_review():
     # title_receive로 클라이언트가 준 title 가져오기
@@ -79,6 +79,28 @@ def read_reviews():
     return jsonify({'result': 'success', 'reviews': reviews})
 
 
+# affirmation
+@app.route('/api/affirmation', methods=['POST'])
+def write_affirmation():
+    content_receive = request.form['content_give']
+    # DB에 삽입할 review 만들기
+    affirmation = {
+        'content': content_receive
+    }
+    db.affirmations.insert_one(affirmation)
+    # 성공 여부 & 성공 메시지 반환
+    return jsonify({'result': 'success', 'msg': '저장 성공'})
+
+
+@app.route('/api/affirmation', methods=['GET'])
+def read_affirmation():
+    # 1. DB에서 리뷰 정보 모두 가져오기
+    affirmations = list(db.affirmations.find({}, {'_id': 0}))
+    # 2. 성공 여부 & 리뷰 목록 반환하기
+    return jsonify({'result': 'success', 'affirmations': affirmations})
+
+
+# silence
 @app.route('/api/silence', methods=['POST'])
 def post_silence():
     # 1. 클라이언트로부터 데이터를 받기
@@ -116,6 +138,7 @@ def read_silence():
     return jsonify({'result': 'success', 'silences': result})
 
 
+# delete
 @app.route('/api/silence', methods=['POST'])
 def delete_silence():
     # 1. 클라이언트가 전달한 name_give를 name_receive 변수에 넣습니다.
