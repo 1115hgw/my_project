@@ -99,6 +99,23 @@ def read_affirmation():
     # 2. 성공 여부 & 리뷰 목록 반환하기
     return jsonify({'result': 'success', 'affirmations': affirmations})
 
+@app.route('/api/affirmation/update', methods=['POST'])
+def update_affirmaion():
+    # 1. 클라이언트가 전달한 name_give를 name_receive 변수에 넣습니다.
+    content_receive = request.form['content_give']
+
+    # 2. mystar 목록에서 find_one으로 name이 name_receive와 일치하는 star를 찾습니다.
+    star = db.affirmations.find_one({'content':content_receive})
+
+    # new_content=  새로입력하는걸 받아와야함
+
+    # 4. mystar 목록에서 name이 name_receive인 문서의 like 를 new_like로 변경합니다.
+    # 참고: '$set' 활용하기!
+    db.affirmations.update_one({'content':content_receive},{'$set':{'content':new_content}})
+
+    # 5. 성공하면 success 메시지를 반환합니다.
+    return jsonify({'result': 'success'})
+
 
 # silence
 @app.route('/api/silence', methods=['POST'])
@@ -139,7 +156,7 @@ def read_silence():
 
 
 # delete
-@app.route('/api/silence', methods=['POST'])
+@app.route('/api/silence/delete', methods=['POST'])
 def delete_silence():
     # 1. 클라이언트가 전달한 name_give를 name_receive 변수에 넣습니다.
     url_receive = request.form['url_give']

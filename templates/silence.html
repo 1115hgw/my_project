@@ -22,6 +22,7 @@
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
 
+
     <!-- 구글폰트 -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Yeon+Sung&display=swap" rel="stylesheet">
@@ -125,7 +126,7 @@
             // 참고) POST 방식이므로 data: {'name_give': name} 과 같은 양식이 되어야합니다!
             $.ajax({
                 type: "POST",
-                url: "/api/silence",
+                url: "/api/silence/delete",
                 data: {url_give: url},
                 success: function (response) {
                     if (response['result'] == 'success') {
