@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko">
+<html lang="ko" xmlns="http://www.w3.org/1999/html">
 <head>
 
     <!-- Webpage Title -->
@@ -12,111 +12,120 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-</head>
-<body>
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
 
-<!-- JS -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+    <!-- 구글폰트 -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Yeon+Sung&display=swap" rel="stylesheet">
 
-<!-- 구글폰트 -->
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Yeon+Sung&display=swap" rel="stylesheet">
-
-<script type="text/javascript">
-
-    $(document).ready(function () {
-        $("#contents-box").html("");
-        show_affirmation();
-    });
-
-    function write_affirmation() {
-        // 1. 화면에 입력어 있는 내용을 가져옵니다.
-        let content = $("#content").val();
-
-        // 2. 내용을 하나도 입력하지 않았을 경우 alert를 띄웁니다.
-        if (content == "") {
-            alert("확언의 말을 입력해주세요");
-            $("#content").focus();
-            return;
+    <style type="text/css">
+        * {
+            font-family: 'Yeon Sung', cursive;
         }
 
-        // 3. POST /affirmation 에 저장(Create)을 요청합니다.
-        $.ajax({
-            type: "POST",
-            url: "/api/affirmation",
-            data: {content_give: content},
-            success: function (response) {
-                if (response["result"] == "success") {
-                    alert(response["msg"]);
-                    window.location.reload();
-                }
-            }
-        })
-    }
+        .wrap {
+            width: 600px;
+            margin: auto;
+        }
 
-    function show_affirmation() {
-        // 1. 리뷰 목록을 서버에 요청하기
-        $.ajax({
-            type: "GET",
-            url: "/api/affirmation",
-            data: {},
-            success: function (response) {
-                // 2. 요청 성공 여부 확인하기
-                if (response["result"] == "success") {
-                    let affirmations = response["affirmations"];
-                    // 3. 요청 성공했을 때 리뷰를 올바르게 화면에 나타내기
-                    for (let i = 0; i < affirmations.length; i++) {
-                        make_affirmation(affirmations[i]["title"])
+        h1, h5 {
+            display: inline;
+        }
+
+        .img {
+            background-image: url('https://mindgil.com/editor/cheditor_5/attach/20190904092942_tvwlmulq.jpg');
+            background-size: cover;
+            background-position: center;
+            width: 300px;
+            height: 200px;
+        }
+
+        .comment {
+            color: #0000ff;
+            font-weight: bold;
+        }
+
+        #post-box {
+            width: 300px;
+            margin: 20px auto;
+            padding: 50px;
+            border: black solid;
+            border-radius: 5px;
+        }
+    </style>
+
+    <script>
+
+        $(document).ready(function () {
+            $("#contents-box").html("");
+            show_affirmation();
+        });
+
+        function post_affirmation() {
+            // 1. 화면에 입력어 있는 내용을 가져옵니다.
+            let content = $("#content").val();
+
+            // 2. 내용을 하나도 입력하지 않았을 경우 alert를 띄웁니다.
+            if (content == "") {
+                alert("확신의 말을 입력해주세요");
+                $("#content").focus();
+                return;
+            }
+
+            // 3. POST /affirmation 에 저장(Create)을 요청합니다.
+            $.ajax({
+                type: "POST",
+                url: "/api/affirmation",
+                data: {content_give: content},
+                success: function (response) {
+                    if (response["result"] == "success") {
+                        alert("포스팅 성공");
+                        window.location.reload();
+                    } else {
+                        alert("서버 오류!")
                     }
-                } else {
-                    alert("리뷰를 받아오지 못했습니다");
                 }
-            }
-        })
-    }
+            })
+        }
+
+        function show_affirmation() {
+            // 1. 리뷰 목록을 서버에 요청하기
+            $.ajax({
+                type: "GET",
+                url: "/api/affirmation",
+                data: {},
+                success: function (response) {
+                    let affirmations = response["affirmations"]
+                    console.log(affirmations)
+                    for (let i = 0; i < affirmations.length; i++) {
+                        makecard_affirmation(affirmations[i]["content"])
+                    }
+                }
+            })
+        }
 
 
-    function make_affirmation(content) {
-        let tempHtml = `<div class="form-check">
+        function makecard_affirmation(content) {
+            let tempHtml = `<div class="form-check">
             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                 <label class="form-check-label" for="flexCheckDefault">
                     ${content}
                 </label>
-        </div>`
-    $("#contents-box").append(tempHtml);
-    }
+        </div>`;
+            $("#contents-box").append(tempHtml);
+        }
 
-</script>
+    </script>
+</head>
+<body>
 
-<style type="text/css">
-    * {
-        font-family: 'Yeon Sung', cursive;
-    }
-
-    .wrap {
-        width: 600px;
-        margin: auto;
-    }
-
-    h1, h5 {
-        display: inline;
-    }
-
-    .img {
-        background-image: url('https://img.etoday.co.kr/pto_db/2017/12/20171229094602_1169578_710_340.jpg');
-        background-size: cover;
-        background-position: center;
-        width: 300px;
-        height: 200px;
-    }
-
-</style>
 <div class="wrap">
     <p>
     <h1 class="display-4"> Affirmations(확신의 말)&#127774;</h1> <br>
@@ -136,30 +145,33 @@
     <br>
     <div class="img"></div>
     <br>
+    <div class="wrap">
+        <button onclick="openclose_affirmation()" id="btn-post-box" type="button" class="btn btn-primary">목표 추가하기
+        </button>
 
-    <div id="post-box" class="form-post">
-        <div>
-            <div class="form-group">
-                <label for="post-comment">확신의 말</label>
-                <textarea id="post-comment" class="form-control" rows="4"></textarea>
+        <div id="post-box" class="form-post" style="...">
+            <div>
+                <div class="form-group">
+                    <label for="post-comment">확신의 말</label>
+                    <textarea id="post-comment" class="form-control" rows="4"></textarea>
+                </div>
+                <button type="button" class="btn btn-secondary" onclick="post_affirmation()">등록하기</button>
+                <br>
             </div>
-            <button type="button" class="btn btn-secondary" onclick="write_affirmation()">등록하기</button>
-            <br>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+                나만의 웹페이지 만들기
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+            <label class="form-check-label" for="flexCheckChecked">
+                영어회화 시작하기
+            </label>
         </div>
     </div>
-    <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-        <label class="form-check-label" for="flexCheckDefault">
-            나만의 웹페이지 만들기
-        </label>
-    </div>
-    <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-        <label class="form-check-label" for="flexCheckChecked">
-            영어회화 시작하기
-        </label>
-    </div>
-</div>
 
 </div>
 
