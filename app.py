@@ -100,7 +100,7 @@ def read_affirmation():
     return jsonify({'result': 'success', 'affirmations': affirmations})
 
 @app.route('/api/affirmation/update', methods=['POST'])
-def update_affirmaion():
+def update_affirmation():
     # 1. 클라이언트가 전달한 name_give를 name_receive 변수에 넣습니다.
     content_receive = request.form['content_give']
 
