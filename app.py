@@ -1,7 +1,7 @@
-from flask import Flask, render_template, jsonify, request
-from pymongo import MongoClient  # pymongo를 임포트 하기(패키지 인스톨 먼저 해야겠죠?)
 import requests
 from bs4 import BeautifulSoup
+from flask import Flask, render_template, jsonify, request
+from pymongo import MongoClient  # pymongo를 임포트 하기(패키지 인스톨 먼저 해야겠죠?)
 
 app = Flask(__name__)
 
@@ -99,6 +99,7 @@ def read_affirmation():
     # 2. 성공 여부 & 리뷰 목록 반환하기
     return jsonify({'result': 'success', 'affirmations': result})
 
+
 # @app.route('/api/affirmation/update', methods=['POST'])
 # def update_affirmation():
 #     # 1. 클라이언트가 전달한 name_give를 name_receive 변수에 넣습니다.
@@ -132,13 +133,13 @@ def post_silence():
 
     og_image = soup.select_one('meta[property="og:image"]')
     og_title = soup.select_one('meta[property="og:title"]')
-    og_description = soup.select_one('meta[property="og:description"]')
+    # og_description = soup.select_one('meta[property="og:description"]')
 
     url_title = og_title['content']
-    url_description = og_description['content']
+    # url_description = og_description['content']
     url_image = og_image['content']
 
-    silence = {'url': url_receive, 'title': url_title, 'desc': url_description, 'image': url_image,
+    silence = {'url': url_receive, 'title': url_title, 'image': url_image,
                'comment': comment_receive}
 
     # 3. mongoDB에 데이터를 넣기

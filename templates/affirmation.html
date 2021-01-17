@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko" xmlns="http://www.w3.org/1999/html">
+<html lang="ko">
 <head>
 
     <!-- Webpage Title -->
@@ -47,10 +47,6 @@
             height: 200px;
         }
 
-        .comment {
-            color: #0000ff;
-            font-weight: bold;
-        }
 
         #post-box {
             width: 300px;
@@ -59,25 +55,43 @@
             border: black solid;
             border-radius: 5px;
         }
+        .form-check{
+            font-size: 20px;
+        }
     </style>
 
     <script>
 
         $(document).ready(function () {
-            $("#contents-box").html("");
+            $("#cards-box").html("");
             show_affirmation();
         });
 
+        function openclose_affirmation() {
+            // id 값 post-box의 display 값이 block 이면(= 눈에 보이면)
+            if ($("#post-box").css("display") == "block") {
+                // post-box를 가리고
+                $("#post-box").hide();
+                // 다시 버튼을 클릭하면, 박스 열기를 할 수 있게 텍스트 바꿔두기
+                $("#btn-post-box").text("목표 추가하기");
+            } else {
+                // 아니면(눈에 보이지 않으면) post-box를 펴라
+                $("#post-box").show();
+                // 다시 버튼을 클릭하면, 박스 닫기를 할 수 있게 텍스트 바꿔두기
+                $("#btn-post-box").text("닫기");
+            }
+        }
+
         function post_affirmation() {
             // 1. 화면에 입력어 있는 내용을 가져옵니다.
-            let content = $("#content").val();
+            let content = $("#post-contents").val();
 
-            // 2. 내용을 하나도 입력하지 않았을 경우 alert를 띄웁니다.
-            if (content == "") {
-                alert("확신의 말을 입력해주세요");
-                $("#content").focus();
-                return;
-            }
+            // // 2. 내용을 하나도 입력하지 않았을 경우 alert를 띄웁니다.
+            // if (content == "") {
+            //     alert("확신의 말을 입력해주세요");
+            //     $("#post-contents").focus();
+            //     return;
+            // }
 
             // 3. POST /affirmation 에 저장(Create)을 요청합니다.
             $.ajax({
@@ -103,7 +117,7 @@
                 data: {},
                 success: function (response) {
                     let affirmations = response["affirmations"]
-                    console.log(affirmations)
+                    console.log(affirmations);
                     for (let i = 0; i < affirmations.length; i++) {
                         makecard_affirmation(affirmations[i]["content"])
                     }
@@ -119,7 +133,7 @@
                     ${content}
                 </label>
         </div>`;
-            $("#contents-box").append(tempHtml);
+            $("#cards-box").append(tempHtml);
         }
 
     </script>
@@ -146,30 +160,32 @@
     <div class="img"></div>
     <br>
     <div class="wrap">
-        <button onclick="openclose_affirmation()" id="btn-post-box" type="button" class="btn btn-primary">목표 추가하기
+        <button onclick="openclose_affirmation()" id="btn-post-box" type="button" class="btn btn-secondary">목표 추가하기
         </button>
 
-        <div id="post-box" class="form-post" style="...">
+        <div id="post-box" class="form-post" style="display:none">
             <div>
                 <div class="form-group">
-                    <label for="post-comment">확신의 말</label>
-                    <textarea id="post-comment" class="form-control" rows="4"></textarea>
+                    <label for="post-contents">확신의 말</label>
+                    <textarea id="post-contents" class="form-control" rows="4"></textarea>
                 </div>
                 <button type="button" class="btn btn-secondary" onclick="post_affirmation()">등록하기</button>
                 <br>
             </div>
         </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
-                나만의 웹페이지 만들기
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-            <label class="form-check-label" for="flexCheckChecked">
-                영어회화 시작하기
-            </label>
+        <div id="cards-box">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                    나만의 웹페이지 만들기
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                <label class="form-check-label" for="flexCheckChecked">
+                    영어회화 시작하기
+                </label>
+            </div>
         </div>
     </div>
 
