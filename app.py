@@ -79,6 +79,16 @@ def read_reviews():
     return jsonify({'result': 'success', 'reviews': reviews})
 
 
+@app.route('/api/read/delete', methods=['POST'])
+def delete_read():
+    # 1. 클라이언트가 전달한 name_give를 name_receive 변수에 넣습니다.
+    title_receive = request.form['title_give']
+    # 2. mystar 목록에서 delete_one으로 name이 name_receive와 일치하는 star를 제거합니다.
+    db.reviews.delete_one({'title': title_receive})
+    # 3. 성공하면 success 메시지를 반환합니다.
+    return jsonify({'result': 'success'})
+
+
 # affirmation
 @app.route('/api/affirmation', methods=['POST'])
 def post_affirmation():
@@ -156,7 +166,6 @@ def read_silence():
     return jsonify({'result': 'success', 'silences': result})
 
 
-# delete
 @app.route('/api/silence/delete', methods=['POST'])
 def delete_silence():
     # 1. 클라이언트가 전달한 name_give를 name_receive 변수에 넣습니다.
@@ -182,13 +191,13 @@ def post_exercise():
 
     og_image = soup.select_one('meta[property="og:image"]')
     og_title = soup.select_one('meta[property="og:title"]')
-    og_description = soup.select_one('meta[property="og:description"]')
+    # og_description = soup.select_one('meta[property="og:description"]')
 
     url_title = og_title['content']
-    url_description = og_description['content']
+    # url_description = og_description['content']
     url_image = og_image['content']
 
-    exercise = {'url': url_receive, 'title': url_title, 'desc': url_description, 'image': url_image,
+    exercise = {'url': url_receive, 'title': url_title, 'image': url_image,
                 'comment': comment_receive}
 
     # 3. mongoDB에 데이터를 넣기
@@ -199,10 +208,41 @@ def post_exercise():
 
 @app.route('/api/exercise', methods=['GET'])
 def read_exercise():
-    # 1. mongoDB에서 _id 값을 제외한 모든 데이터 조회해오기 (Read)
     result = list(db.exercises.find({}, {'_id': 0}))
-    # 2. articles라는 키 값으로 article 정보 보내주기
     return jsonify({'result': 'success', 'exercises': result})
+
+
+@app.route('/api/exercise/delete', methods=['POST'])
+def delete_exercise():
+    url_receive = request.form['url_give']
+    db.exercises.delete_one({'url': url_receive})
+    return jsonify({'result': 'success'})
+
+
+@app.route('/api/scribing', methods=['POST'])
+def post_scribing():
+    # 1. 클라이언트로부터 데이터를 받기
+    date_receive = request.form['date_give']  # 클라이언트로부터 url을 받는 부분
+    content_receive = request.form['content_give']  # 클라이언트로부터 comment를 받는 부분
+    diary = {'date': date_receive, 'content': content_receive}
+    # 3. mongoDB에 데이터를 넣기
+    db.diaries.insert_one(diary)
+
+    return jsonify({'result': 'success'})
+
+
+@app.route('/api/scribing', methods=['GET'])
+def read_scribing():
+    result = list(db.diaries.find({}, {'_id': 0}))
+    return jsonify({'result': 'success', 'diaries': result})
+
+
+@app.route('/api/scribing/delete', methods=['POST'])
+def delete_scribing():
+    content_receive = request.form['content_give']
+    db.diaries.delete_one({'content': content_receive})
+    # 3. 성공하면 success 메시지를 반환합니다.
+    return jsonify({'result': 'success'})
 
 
 if __name__ == '__main__':

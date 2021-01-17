@@ -13,8 +13,7 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
             integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
@@ -50,19 +49,96 @@
             height: 200px;
         }
 
-        .comment {
-            color: blue;
-            font-weight: bold;
+        #post-box {
+            width: 500px;
+            margin: 20px auto;
+            padding: 10px;
+            border: #b4b6b6 solid;
+            border-radius: 5px;
+
         }
 
-        #post-box {
-            width: 300px;
-            margin: 20px auto;
-            padding: 50px;
-            border: black solid;
-            border-radius: 5px;
+        .delete {
+            color: #d90404;
+            text-decoration: underline;
+            text-align: right;
+
         }
+
     </style>
+    <script>
+        $(document).ready(function () {
+            $("#cards-box").html("");
+            show_diary();
+        });
+
+        function post_diary() {
+            let date = $("#post-date").val();
+            let content = $("#post-content").val();
+
+            // 2. memo에 POST 방식으로 메모 생성 요청하기
+            $.ajax({
+                type: "POST", // POST 방식으로 요청하겠다.
+                url: "/api/scribing", // /memo라는 url에 요청하겠다.
+                data: {date_give: date, content_give: content}, // 데이터를 주는 방법
+                success: function (response) { // 성공하면
+                    if (response["result"] == "success") {
+                        alert("포스팅 성공!");
+                        // 3. 성공 시 페이지 새로고침하기
+                        window.location.reload();
+                    } else {
+                        alert("서버 오류!")
+                    }
+                }
+            })
+        }
+
+        function show_diary() {
+            $.ajax({
+                type: "GET",
+                url: "/api/scribing",
+                data: {},
+                success: function (response) {
+                    let diaries = response["diaries"];
+                    console.log(diaries);
+                    for (let i = 0; i < diaries.length; i++) {
+                        makecard_diary(diaries[i]["date"], diaries[i]["content"])
+                    }
+                }
+            })
+        }
+
+        function delete_diary(content) {
+            // 1. 서버에 1) POST 방식으로, 2) /api/delete 라는 url에, 3) name_give라는 이름으로 name을 전달합니다.
+            // 참고) POST 방식이므로 data: {'name_give': name} 과 같은 양식이 되어야합니다!
+            $.ajax({
+                type: "POST",
+                url: "/api/scribing/delete",
+                data: {content_give: content},
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        // 2. '삭제 완료! 안녕!' 얼럿을 띄웁니다.
+                        alert('삭제 완료!')
+                        window.location.reload();
+                    } else {
+                        alert("서버 오류!")
+                    }
+                }
+            });
+        }
+
+        function makecard_diary(date, content) {
+            let temp_html = `<div class="card" style="width: 200px;">
+        <div class="card-body">
+            <h5 class="card-title">${date}</h5>
+            <p class="card-text">${content} </p>
+            <a href="#" class="delete" onclick="delete_diary('${content}')">삭제</a>
+        </div>
+                    </div>`;
+
+            $("#cards-box").append(temp_html);
+        }
+    </script>
 </head>
 <body>
 
@@ -84,34 +160,79 @@
     <br>
     <div class="img"></div>
     <br>
+    <br>
+
     <div class="wrap">
-
-
         <div id="post-box" class="form-post">
             <div>
-                <div class="form-group">
-                    <label for="today">날짜</label>
-<!--                    <input type="date" id="today" class="form-control">-->
-                    <form>
-                        <input type='date' id='today'/>
-                    </form>
-
+                <h4 style="font-weight:bold">&#9997; 기록 남기기 </h4>
+                <br>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">날짜</span>
+                    </div>
+                    <form><input type="date" class="form-control" id="post-date"></form>
                     <script>
-                        document.getElementById('today').value = new Date().toISOString().substring(0, 10);
-                        ;
+                        document.getElementById('post-date').value = new Date().toISOString().substring(0, 10);
                     </script>
-                    <!--                    <input id="post-url" class="form-control" placeholder="">-->
                 </div>
-                <div class="form-group">
-                    <label for="post-comment">기록하기</label>
-                    <textarea id="post-comment" class="form-control" rows="4"></textarea>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">내용</span>
+                    </div>
+                    <textarea class="form-control" id="post-content"
+                              cols="30"
+                              rows="7" placeholder=""></textarea>
                 </div>
-                <button type="button" class="btn btn-info" onclick="postArticle()">저장하기</button>
+                <!--                <div class="form-group">-->
+                <!--                    <label for="post-date">날짜</label>-->
+                <!--                    <form><input type='date' id='post-date'/></form>-->
+                <!--                    <script>-->
+                <!--                        document.getElementById('post-date').value = new Date().toISOString().substring(0, 10);-->
+                <!--                    </script>-->
+                <!--                </div>-->
+                <!--                <div class="form-group">-->
+                <!--                    <label for="post-content">기록하기</label>-->
+                <!--                    <textarea id="post-content" class="form-control" rows="4"></textarea>-->
+                <!--                </div>-->
+                <button type="button" class="btn btn-info" onclick="post_diary()">저장하기</button>
             </div>
         </div>
-
+        <div id="cards-box" class="card-columns">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">여기에 일기 내용을 입력하세요. </p>
+                    <a href="#" class="delete" onclick="delete_diary('일기내용')">삭제</a>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">여기에 일기 내용을 입력하세요. </p>
+                    <a href="#" class="delete" onclick="delete_diary('일기내용')">삭제</a>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">여기에 일기 내용을 입력하세요. </p>
+                    <a href="#" class="delete" onclick="delete_diary('일기내용')">삭제</a>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">여기에 일기 내용을 입력하세요. </p>
+                    <a href="#" class="delete" onclick="delete_diary('일기내용')">삭제</a>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">여기에 일기 내용을 입력하세요. </p>
+                    <a href="#" class="delete" onclick="delete_diary('일기내용')">삭제</a>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">여기에 일기 내용을 입력하세요. </p>
+                    <a href="#" class="delete" onclick="delete_diary('일기내용')">삭제</a>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 </div>
 </body>
 </html>

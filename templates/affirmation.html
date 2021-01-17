@@ -49,15 +49,15 @@
 
 
         #post-box {
-            width: 300px;
+            width: 500px;
             margin: 20px auto;
-            padding: 50px;
-            border: black solid;
+            padding: 20px;
+            border: #b4b6b6 solid;
             border-radius: 5px;
         }
-        .form-check{
-            font-size: 20px;
-        }
+        /*.form-check{*/
+        /*    font-size: 20px;*/
+        /*}*/
     </style>
 
     <script>
@@ -166,7 +166,7 @@
         <div id="post-box" class="form-post" style="display:none">
             <div>
                 <div class="form-group">
-                    <label for="post-contents">확신의 말</label>
+                     <label for="post-contents"> <h4 style="font-weight:bold"> &#x1F4DA; 확신의 말 </h4></label>
                     <textarea id="post-contents" class="form-control" rows="4"></textarea>
                 </div>
                 <button type="button" class="btn btn-secondary" onclick="post_affirmation()">등록하기</button>
@@ -187,6 +187,8 @@
                 </label>
             </div>
         </div>
+           <button onclick="" id="btn-save-list" type="button" class="btn btn-primary">저장하기
+        </button>
     </div>
 
 </div>
