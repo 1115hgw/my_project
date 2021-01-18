@@ -81,11 +81,8 @@ def read_reviews():
 
 @app.route('/api/read/delete', methods=['POST'])
 def delete_read():
-    # 1. 클라이언트가 전달한 name_give를 name_receive 변수에 넣습니다.
     title_receive = request.form['title_give']
-    # 2. mystar 목록에서 delete_one으로 name이 name_receive와 일치하는 star를 제거합니다.
     db.reviews.delete_one({'title': title_receive})
-    # 3. 성공하면 success 메시지를 반환합니다.
     return jsonify({'result': 'success'})
 
 
@@ -110,22 +107,11 @@ def read_affirmation():
     return jsonify({'result': 'success', 'affirmations': result})
 
 
-# @app.route('/api/affirmation/update', methods=['POST'])
-# def update_affirmation():
-#     # 1. 클라이언트가 전달한 name_give를 name_receive 변수에 넣습니다.
-#     content_receive = request.form['content_give']
-#
-#     # 2. mystar 목록에서 find_one으로 name이 name_receive와 일치하는 star를 찾습니다.
-#     star = db.affirmations.find_one({'content':content_receive})
-#
-#     # new_content=  새로입력하는걸 받아와야함
-#
-#     # 4. mystar 목록에서 name이 name_receive인 문서의 like 를 new_like로 변경합니다.
-#     # 참고: '$set' 활용하기!
-#     db.affirmations.update_one({'content':content_receive},{'$set':{'content':new_content}})
-#
-#     # 5. 성공하면 success 메시지를 반환합니다.
-#     return jsonify({'result': 'success'})
+@app.route('/api/affirmation/delete', methods=['POST'])
+def delete_affirmation():
+    content_receive = request.form['content_give']
+    db.affirmations.delete_one({'content': content_receive})
+    return jsonify({'result': 'success'})
 
 
 # silence

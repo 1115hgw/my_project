@@ -55,9 +55,19 @@
             border: #b4b6b6 solid;
             border-radius: 5px;
         }
-        /*.form-check{*/
-        /*    font-size: 20px;*/
-        /*}*/
+
+        .todo {
+            color: black;
+            width: 500px;
+            font-size: 22px;
+            word-break: break-all;
+        }
+
+        .delete {
+            color: #d90404;
+            font-size: 15px;
+            text-decoration: underline;
+        }
     </style>
 
     <script>
@@ -125,16 +135,65 @@
             })
         }
 
+        function delete_affirmation(content) {
+            // 1. 서버에 1) POST 방식으로, 2) /api/delete 라는 url에, 3) name_give라는 이름으로 name을 전달합니다.
+            // 참고) POST 방식이므로 data: {'name_give': name} 과 같은 양식이 되어야합니다!
+            $.ajax({
+                type: "POST",
+                url: "/api/affirmation/delete",
+                data: {content_give: content},
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        // 2. '삭제 완료! 안녕!' 얼럿을 띄웁니다.
+                        alert('삭제 완료!')
+                        window.location.reload();
+                    } else {
+                        alert("서버 오류!")
+                    }
+                }
+            });
+        }
+
 
         function makecard_affirmation(content) {
-            let tempHtml = `<div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                <label class="form-check-label" for="flexCheckDefault">
-                    ${content}
-                </label>
-        </div>`;
+            let tempHtml = ` <ul>
+                <li class="todo">${content}
+               <a href="#" class="delete" onclick="delete_affirmation('${content}')">삭제</a>
+               </li>
+            </ul>`;
             $("#cards-box").append(tempHtml);
         }
+
+        //
+        // function check_update() {
+        //     // 1. 화면에 있는 모든 데이터 가져오기
+        //     // let check = $("#check-checked").val();
+        //     let content = $("#post-contents").val();
+        //
+        //
+        //     if ($("#check-checked").is(":checked") == true) {
+        //         console.log('체크된 상태');
+        //     }
+        //     if ($("#check-checked").is(":checked") == false) {
+        //         console.log('체크 안 된 상태');
+        //     }
+        //     // 가져온 데이터 모두 DB 에 저장하기
+        //     $.ajax({
+        //         type: "POST",
+        //         url: "/api/affirmation/update",
+        //         data: {content_give: content, check_give: check},
+        //         success: function (response) {
+        //             if (response['result'] == 'success') {
+        //                 // 2. '삭제 완료! 안녕!' 얼럿을 띄웁니다.
+        //                 alert('저장성공!')
+        //                 window.location.reload();
+        //             } else {
+        //                 alert("서버 오류!")
+        //             }
+        //         }
+        //     });
+        //
+        // }
 
     </script>
 </head>
@@ -162,35 +221,42 @@
     <div class="wrap">
         <button onclick="openclose_affirmation()" id="btn-post-box" type="button" class="btn btn-secondary">목표 추가하기
         </button>
+        <br>
 
         <div id="post-box" class="form-post" style="display:none">
             <div>
                 <div class="form-group">
-                     <label for="post-contents"> <h4 style="font-weight:bold"> &#x1F4DA; 확신의 말 </h4></label>
+                    <label for="post-contents"><h4 style="font-weight:bold"> &#x1F4DA; 확신의 말 </h4></label>
                     <textarea id="post-contents" class="form-control" rows="4"></textarea>
                 </div>
                 <button type="button" class="btn btn-secondary" onclick="post_affirmation()">등록하기</button>
                 <br>
             </div>
         </div>
+        <br>
+        <br>
+        <h4 style="font-weight:bold"> &#128591; 나의 목표 </h4>
+        <br>
         <div id="cards-box">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                <label class="form-check-label" for="flexCheckDefault">
-                    나만의 웹페이지 만들기
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                <label class="form-check-label" for="flexCheckChecked">
-                    영어회화 시작하기
-                </label>
-            </div>
+            <ul>
+                <li class="todo">first item
+                <a href="#" class="delete" onclick="delete_affirmation('책읽기')">삭제</a></li>
+            </ul>
         </div>
-           <button onclick="" id="btn-save-list" type="button" class="btn btn-primary">저장하기
-        </button>
     </div>
 
+    <!--            <div class="form-check-lg">-->
+    <!--                <input class="form-check-input" type="checkbox" value="" id="check-checked" checked>-->
+    <!--                <label class="form-check-label" for="check-checked">-->
+    <!--                    나만의 웹페이지 만들기-->
+    <!--                </label>-->
+    <!--                <a href="#" class="delete" onclick="delete_affirmation('책읽기')">삭제</a>-->
+    <!--            </div>-->
+</div>
+</div>
+</div>
+
+</ul>
 </div>
 
 </body>
