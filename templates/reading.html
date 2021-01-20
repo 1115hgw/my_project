@@ -40,14 +40,15 @@
 
         h1, h5 {
             display: inline;
+
         }
 
         .img {
             background-image: url('https://wonderfulmind.co.kr/wp-content/uploads/2018/05/girl-reading-a-book-with-cat-bookmark-600x367.jpg');
             background-size: cover;
             background-position: center;
-            width: 300px;
-            height: 200px;
+            width: 250px;
+            height: 180px;
         }
 
         .review {
@@ -69,6 +70,11 @@
             text-align: right;
             font-size: 13px;
 
+        }
+
+        .info {
+
+            /*width: 400px;*/
         }
 
     </style>
@@ -177,77 +183,84 @@
 
 </head>
 <body>
-<div class="wrap">
-    <p>
-    <h1 class="display-4">Reading(독서)&#127774;</h1> <br>
-    <p>
-    <div class="menu">
-        <a class="btn btn-outline-primary" href="{{ url_for('get_silencepage') }}"> Silence<br>(침묵)</a>
-        <a class="btn btn-outline-secondary" href="{{ url_for('get_affirmationpage') }}">Affirmation<br>(확신의 말)</a>
-        <a class="btn btn-outline-success" href="{{ url_for('get_visualizationpage') }}">Visualization<br>(시각화)</a>
-        <a class="btn btn-outline-danger" href="{{ url_for('get_exercisepage') }}">Exercise<br>운동</a>
-        <a class="btn btn-warning" href="{{ url_for('get_readpage') }}"> Reading<br>(독서)</a>
-        <a class="btn btn-outline-info" href="{{ url_for('get_scribingpage') }}">Scribing<br>(쓰기)</a>
-    </div>
-    <br>
-    <h3>책을 들고 한 단락이든 한 쪽이든 읽는다.</h3>
-    <h4>1년이면 20권 분량의 책을 읽고 있는 자신을 발견하게 될 것이다.</h4>
-    <br>
-    <div class="img"></div>
-    <br>
-    <div class="wrap">
-        <div class="container">
-            <div class="info">
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">제목</span>
-                    </div>
-                    <input type="text" class="form-control" id="title">
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">저자</span>
-                    </div>
-                    <input type="text" class="form-control" id="author">
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">리뷰</span>
-                    </div>
-                    <textarea class="form-control" id="bookReview"
-                              cols="30"
-                              rows="5" placeholder="150자까지 입력할 수 있습니다." onkeyup="validateLength(this)"></textarea>
-                </div>
-                <div class="review">
-                    <button onclick="makeReview()" type="button" class="btn btn-warning">읽은 책 등록하기</button>
+<div class="center">
+    <div class="container">
+        <p>
+        <h1>Reading(독서)&#127774;</h1> <br>
+        <p>
+        <div class="menu">
+            <a class="btn btn-outline-primary" href="{{ url_for('get_silencepage') }}"> Silence<br>(침묵)</a>
+            <a class="btn btn-outline-secondary" href="{{ url_for('get_affirmationpage') }}">Affirmation<br>(확신의 말)</a>
+            <a class="btn btn-outline-success" href="{{ url_for('get_visualizationpage') }}">Visualization<br>(시각화)</a>
+            <a class="btn btn-outline-danger" href="{{ url_for('get_exercisepage') }}">Exercise<br>운동</a>
+            <a class="btn btn-warning" href="{{ url_for('get_readpage') }}"> Reading<br>(독서)</a>
+            <a class="btn btn-outline-info" href="{{ url_for('get_scribingpage') }}">Scribing<br>(쓰기)</a>
+        </div>
+        <div>
+            <br>
+            <div class="container">
+                <h4>세상의 모든 지식을 읽어내는 시간</h4>
+                <h5>자기계발서를 1-2페이지씩 매일 읽어보세요. 일이나 인간관계를 개선할 수 있는 새로운 아이디어를 배울 수 있어요.</h5>
+                <br>
+                <div class="img">
                 </div>
             </div>
-
-            <div class="reviews">
-                <table class="table">
-                    <h4 style="font-weight:bold"> &#x1F4DA; 읽은 책 목록 </h4>
-                    <br>
-                    <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th scope="col" col width="25%">제목</th>
-                        <th scope="col" col width="15%">저자</th>
-                        <th scope="col" col width="50%">리뷰</th>
-                    </tr>
-                    </thead>
-                    <tbody id="reviews-box">
-                    <tr>
-                        <td>왕초보 8주 코딩</td>
-                        <td>김르탄</td>
-                        <td>역시 왕초보 코딩교육의 명가답군요. 따라하다보니 눈 깜짝할 사이에 8주가 지났습니다.</td>
-                        <td class="delete" onclick="delete_review('제목')">삭제</td>
-                    </tr>
-                    </tbody>
-                    </table>
-                </table>
+            <br>
+            <div class="center">
+                <div class="container">
+                    <div class="info">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">제목</span>
+                            </div>
+                            <input type="text" class="form-control" id="title">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">저자</span>
+                            </div>
+                            <input type="text" class="form-control" id="author">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">리뷰</span>
+                            </div>
+                            <textarea class="form-control" id="bookReview"
+                                      cols="30"
+                                      rows="5" placeholder="150자까지 입력할 수 있습니다."
+                                      onkeyup="validateLength(this)"></textarea>
+                        </div>
+                        <div class="review">
+                            <button onclick="makeReview()" type="button" class="btn btn-warning">읽은 책 등록하기</button>
+                        </div>
+                    </div>
+                    <div class="container-md">
+                        <div class="reviews">
+                            <table class="table">
+                                <h4 style="font-weight:bold"> &#x1F4DA; 읽은 책 목록 </h4>
+                                <br>
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col" col width="25%">제목</th>
+                                        <th scope="col" col width="15%">저자</th>
+                                        <th scope="col" col width="50%">리뷰</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="reviews-box">
+                                    <tr>
+                                        <td>왕초보 8주 코딩</td>
+                                        <td>김르탄</td>
+                                        <td>역시 왕초보 코딩교육의 명가답군요. 따라하다보니 눈 깜짝할 사이에 8주가 지났습니다.</td>
+                                        <td class="delete" onclick="delete_review('제목')">삭제</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 </body>
 </html>

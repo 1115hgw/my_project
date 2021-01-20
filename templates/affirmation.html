@@ -25,6 +25,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Yeon+Sung&display=swap" rel="stylesheet">
 
+
     <style type="text/css">
         * {
             font-family: 'Yeon Sung', cursive;
@@ -40,16 +41,17 @@
         }
 
         .img {
-            background-image: url('https://mindgil.com/editor/cheditor_5/attach/20190904092942_tvwlmulq.jpg');
+            background-image: url('https://images.christiantoday.co.kr/data/images/full/288423/image.jpg?w=654');
             background-size: cover;
             background-position: center;
-            width: 300px;
-            height: 200px;
+            width: 250px;
+            height: 180px;
         }
 
 
         #post-box {
-            width: 500px;
+
+            /*width: 500px;*/
             margin: 20px auto;
             padding: 20px;
             border: #b4b6b6 solid;
@@ -57,8 +59,8 @@
         }
 
         .todo {
-            color: black;
-            width: 500px;
+            color: #282525;
+            /*width: 380px;*/
             font-size: 22px;
             word-break: break-all;
         }
@@ -68,6 +70,15 @@
             font-size: 15px;
             text-decoration: underline;
         }
+
+        #todo-box {
+            /*width: 500px;*/
+            margin: 20px auto;
+            padding: 10px;
+            border: #b4b6b6 solid;
+            border-radius: 5px;
+        }
+
     </style>
 
     <script>
@@ -164,84 +175,60 @@
             $("#cards-box").append(tempHtml);
         }
 
-        //
-        // function check_update() {
-        //     // 1. 화면에 있는 모든 데이터 가져오기
-        //     // let check = $("#check-checked").val();
-        //     let content = $("#post-contents").val();
-        //
-        //
-        //     if ($("#check-checked").is(":checked") == true) {
-        //         console.log('체크된 상태');
-        //     }
-        //     if ($("#check-checked").is(":checked") == false) {
-        //         console.log('체크 안 된 상태');
-        //     }
-        //     // 가져온 데이터 모두 DB 에 저장하기
-        //     $.ajax({
-        //         type: "POST",
-        //         url: "/api/affirmation/update",
-        //         data: {content_give: content, check_give: check},
-        //         success: function (response) {
-        //             if (response['result'] == 'success') {
-        //                 // 2. '삭제 완료! 안녕!' 얼럿을 띄웁니다.
-        //                 alert('저장성공!')
-        //                 window.location.reload();
-        //             } else {
-        //                 alert("서버 오류!")
-        //             }
-        //         }
-        //     });
-        //
-        // }
-
     </script>
 </head>
 <body>
 
-<div class="wrap">
-    <p>
-    <h1 class="display-4"> Affirmations(확신의 말)&#127774;</h1> <br>
-    <p>
-    <div class="menu">
-        <a class="btn btn-outline-primary" href="{{ url_for('get_silencepage') }}"> Silence<br>(침묵)</a>
-        <a class="btn btn-secondary" href="{{ url_for('get_affirmationpage') }}">Affirmation<br>(확신의 말)</a>
-        <a class="btn btn-outline-success" href="{{ url_for('get_visualizationpage') }}">Visualization<br>(시각화)</a>
-        <a class="btn btn-outline-danger" href="{{ url_for('get_exercisepage') }}">Exercise<br>운동</a>
-        <a class="btn btn-outline-warning" href="{{ url_for('get_readpage') }}"> Reading<br>(독서)</a>
-        <a class="btn btn-outline-info" href="{{ url_for('get_scribingpage') }}">Scribing<br>(쓰기)</a>
-    </div>
+<div class="center">
+    <div class="container">
+        <p>
+        <h1> Affirmations(확신의 말)&#127774;</h1> <br>
+        <p>
+        <div class="menu">
+            <a class="btn btn-outline-primary" href="{{ url_for('get_silencepage') }}"> Silence<br>(침묵)</a>
+            <a class="btn btn-secondary" href="{{ url_for('get_affirmationpage') }}">Affirmation<br>(확신의 말)</a>
+            <a class="btn btn-outline-success" href="{{ url_for('get_visualizationpage') }}">Visualization<br>(시각화)</a>
+            <a class="btn btn-outline-danger" href="{{ url_for('get_exercisepage') }}">Exercise<br>운동</a>
+            <a class="btn btn-outline-warning" href="{{ url_for('get_readpage') }}"> Reading<br>(독서)</a>
+            <a class="btn btn-outline-info" href="{{ url_for('get_scribingpage') }}">Scribing<br>(쓰기)</a>
+        </div>
 
-    <br>
-    <h3>가장 중요한 확신의 말을 읽는다.</h3>
-    <h4>성취 목표, 목표가 중요한 이유, 실행 방안과 시기를 되새기고 다짐한다.</h4>
-    <br>
-    <div class="img"></div>
-    <br>
-    <div class="wrap">
-        <button onclick="openclose_affirmation()" id="btn-post-box" type="button" class="btn btn-secondary">목표 추가하기
-        </button>
         <br>
+        <h4>큰 소리로 스스로에게 다짐하는 시간</h4>
+        <h5> 무한한 가능성과 우선 과제들을 상기시켜주는 다짐과 확신의 말을 꺼내들고 처음부터 끝까지 큰 소리로 읽어보세요.</h5>
+        <br>
+        <div class="img"></div>
+    </div>
+    <br>
+    <div class="center">
+        <div class="container">
+            <button onclick="openclose_affirmation()" id="btn-post-box" type="button" class="btn btn-secondary">목표 추가하기
+            </button>
+            <br>
 
-        <div id="post-box" class="form-post" style="display:none">
-            <div>
-                <div class="form-group">
-                    <label for="post-contents"><h4 style="font-weight:bold"> &#x1F4DA; 확신의 말 </h4></label>
-                    <textarea id="post-contents" class="form-control" rows="4"></textarea>
+            <div id="post-box" class="form-post" style="display:none">
+                <div>
+                    <div class="form-group">
+                        <label for="post-contents"><h4 style="font-weight:bold"> 확신을 주는 말 작성하기 </h4></label>
+                        <textarea id="post-contents" class="form-control" rows="4"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-secondary" onclick="post_affirmation()">등록하기</button>
+                    <br>
                 </div>
-                <button type="button" class="btn btn-secondary" onclick="post_affirmation()">등록하기</button>
-                <br>
             </div>
         </div>
         <br>
-        <br>
-        <h4 style="font-weight:bold"> &#128591; 나의 목표 </h4>
-        <br>
-        <div id="cards-box">
-            <ul>
-                <li class="todo">first item
-                <a href="#" class="delete" onclick="delete_affirmation('책읽기')">삭제</a></li>
-            </ul>
+        <div class="container">
+            <div id="todo-box" class="form-post">
+                <h4 style="font-weight:bold"> &#128591; 나의 확신 </h4>
+                <br>
+                <div id="cards-box">
+                    <ul>
+                        <li class="todo">first item
+                            <a href="#" class="delete" onclick="delete_affirmation('책읽기')">삭제</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 

@@ -46,30 +46,32 @@
         background-image: url('https://www.incimages.com/uploaded_files/image/1920x1080/getty_495142964_198701.jpg');
         background-size: cover;
         background-position: center;
-        width: 500px;
-        height: 300px;
+
+        width: 400px;
+        height: 250px;
     }
 
 </style>
-<div class="wrap">
-    <p>
-    <h1 class="display-4">Visualization(시각화)&#127774;</h1> <br>
-    <p>
-    <div class="menu">
-        <a class="btn btn-outline-primary" href="{{ url_for('get_silencepage') }}"> Silence<br>(침묵)</a>
-        <a class="btn btn-outline-secondary" href="{{ url_for('get_affirmationpage') }}">Affirmation<br>(확신의 말)</a>
-        <a class="btn btn-success" href="{{ url_for('get_visualizationpage') }}">Visualization<br>(시각화)</a>
-        <a class="btn btn-outline-danger" href="{{ url_for('get_exercisepage') }}">Exercise<br>운동</a>
-        <a class="btn btn-outline-warning" href="{{ url_for('get_readpage') }}"> Reading<br>(독서)</a>
-        <a class="btn btn-outline-info" href="{{ url_for('get_scribingpage') }}">Scribing<br>(쓰기)</a>
+<div class="center">
+    <div class="container">
+        <p>
+        <h1>Visualization(시각화)&#127774;</h1> <br>
+        <p>
+        <div class="menu">
+            <a class="btn btn-outline-primary" href="{{ url_for('get_silencepage') }}"> Silence<br>(침묵)</a>
+            <a class="btn btn-outline-secondary" href="{{ url_for('get_affirmationpage') }}">Affirmation<br>(확신의 말)</a>
+            <a class="btn btn-success" href="{{ url_for('get_visualizationpage') }}">Visualization<br>(시각화)</a>
+            <a class="btn btn-outline-danger" href="{{ url_for('get_exercisepage') }}">Exercise<br>운동</a>
+            <a class="btn btn-outline-warning" href="{{ url_for('get_readpage') }}"> Reading<br>(독서)</a>
+            <a class="btn btn-outline-info" href="{{ url_for('get_scribingpage') }}">Scribing<br>(쓰기)</a>
+        </div>
+
+        <br>
+        <h4>행동과 결과를 상상하여 그리는 시간</h4>
+        <h5>눈을 감거나 비전보드를 보며 눈에 보이듯 생생하게 성과를 그려보세요. 목표에 도달했을 때의 모습과 느낌을 상상해보세요!</h5>
+        <br>
+        <div class="img"></div>
     </div>
-
-    <br>
-    <h3>오늘 완수해야 하는 중요한 과제를 시각화한다.</h3>
-    <h4>실수없이 완벽하고 깔끔하게 실행에 옮기는 모습을 이미지화한다.</h4>
-    <br>
-    <div class="img"></div>
-
 </div>
 </body>
 </html>
